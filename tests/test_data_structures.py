@@ -80,3 +80,17 @@ def test_get_column_from_dataframe(dataframe):
     col = dataframe.get_column('Numbers')
 
     assert expected == col
+
+def test_dataframe_column_collision(dataframe):
+    col_1 = Column(
+        name = "Numbers",
+        data_type = int,
+        values = [1, 2, 4]
+    )
+    col_2 = Column(
+        name = "Numbers",
+        data_type = int,
+        values = [1, 2, 4]
+    )
+    with pytest.raises(Exception):
+        DataFrame([col_1, col_2])

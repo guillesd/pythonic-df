@@ -1,4 +1,5 @@
 from dataclasses import dataclass, field
+from multiprocessing.sharedctypes import Value
 from ntpath import join
 from typing import Dict, List, Union
 
@@ -47,6 +48,7 @@ class DataFrame:
     def __post_init__(self):
         self._same_size_columns()
         self.index = self._set_index()
+        self._check_column_name_collision()
 
     def __dict__(self):
         return {col.name:col.values for col in self.columns}
@@ -58,6 +60,11 @@ class DataFrame:
 
     def _set_index(self):
         return list(range(self.columns[0].length))
+
+    def _check_column_name_collision(self):
+        col_names = [col.name for col in self.columns]
+        if len(set(col_names)) != len(col_names):
+            raise ValueError(f"You cannot have repeated column names, this will create collisions")
 
     def get_row(self, index_value: int) -> Dict:
         return {col.name:col.values[index_value] for col in self.columns}

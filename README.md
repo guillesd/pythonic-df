@@ -96,7 +96,6 @@ This module intends to provide an interface to operate with DataFrame structures
 
 An example of how to interact with this module would be:
 ```python
-%autoreload 2
 from pythonic_df.operations.dataframe_operations import append
 
 df1 = dataframe_from_dict({'col_a': [1, 2], 'col_b': [2, 4]})

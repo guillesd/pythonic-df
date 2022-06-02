@@ -8,8 +8,8 @@ class Column:
     Dataclass that represents a column
     """
     name: str
-    data_type: Union[str, int, float, bool, None]
     values: List
+    data_type: Union[str, int, float, bool, None] = None
     length: int = field(init=False)
     
     def __post_init__(self):

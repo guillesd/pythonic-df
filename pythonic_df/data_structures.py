@@ -1,4 +1,5 @@
 from dataclasses import dataclass, field
+from ntpath import join
 from typing import Dict, List, Union
 
 @dataclass
@@ -7,23 +8,31 @@ class Column:
     Dataclass that represents a column
     """
     name: str
-    data_type: Union[str, int, float, bool]
+    data_type: Union[str, int, float, bool, None]
     values: List
     length: int = field(init=False)
     
     def __post_init__(self):
         self.length = self._add_length()
+        self._add_typing()
         self._check_typing()
 
     def _add_length(self):
         return len(self.values)
 
+    def _add_typing(self):
+        if self.data_type == None:
+            self.data_type = type(self.values[0])
+        else:
+            pass
+
     def _check_typing(self):
         if all(isinstance(val, self.data_type) for val in self.values):
             pass
         else:
+            types_found = set([type(v) for v in self.values])
             raise AttributeError(
-                f"Expected values to be of type {self.data_type} but found {type(self.values[0])}"
+                f"Expected values of column {self.name} to be of type {self.data_type} but found {*types_found,}"
             )
 
 
@@ -38,6 +47,9 @@ class DataFrame:
     def __post_init__(self):
         self._same_size_columns()
         self.index = self._set_index()
+
+    def __dict__(self):
+        return {col.name:col.values for col in self.columns}
 
     def _same_size_columns(self):
         lengths = [col.length for col in self.columns]

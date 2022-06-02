@@ -3,7 +3,7 @@ from pythonic_df.utils import dataframe_from_dict, enforce_typing
 from typing import Union, List, Dict
 import csv
 
-def read_csv(file_path: str, delimiter: str, has_headers: bool = False, column_names: Union[List, None] = None, data_types: Dict[str, type] = dict()) -> DataFrame:
+def read_csv(file_path: str, delimiter: str, has_headers: bool = False, column_names: Union[List, None] = None, data_types: Union[Dict[str, type], None] = None) -> DataFrame:
     """Method that reads a csv file and formats the data into a pythonic_df DataFrame object"""
     with open(file_path, "r") as file:
         contents = csv.reader(file, delimiter=delimiter)

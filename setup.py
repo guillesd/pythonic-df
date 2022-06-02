@@ -17,6 +17,7 @@ setup(
     name="pythonic-df",
     version="0.1",
     description="This package exposes a structured data processing library based only on pythonic objects. This is a pet project and it is not intended to be used in a production setting.",
+    license="MIT License",
     # Author details
     author="Guillermo Sanchez",
     author_email="guillermosanchez@godatadriven.com",

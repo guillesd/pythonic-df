@@ -24,6 +24,9 @@ def add_columns(df: DataFrame, columns: List[Column]):
     return DataFrame(df.columns.extend(columns))
 
 def concat(dataframes: List[DataFrame]) -> DataFrame:
+    """
+    Receives a list of DataFrame and concatenates them into one DataFrame object
+    """
     output_df = None
     for df in dataframes:
         if isinstance(df, DataFrame):

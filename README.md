@@ -77,6 +77,7 @@ pretty_print(df)
 
 ```
 [out]:
+
       index    col_a  col_b
     -------  -------  -------
           0        1  a
@@ -94,7 +95,7 @@ This module intends to provide an interface to operate with DataFrame structures
 - User defined functions
 - etc.
 
-An example of how to interact with this module would be:
+An example of how to interact with this module to append two DataFrames:
 ```python
 from pythonic_df.operations.dataframe_operations import append
 
@@ -106,10 +107,37 @@ pretty_print(appended_df)
 
 ```
 [out]:
+
       index    col_a    col_b
     -------  -------  -------
           0        1        2
           1        2        4
           2        7        9
           3        8       11
+```
+
+You can also join two DataFrames, like so:
+```python
+from pythonic_df.operations.dataframe_operations import join
+
+df1 = dataframe_from_dict({'col_a': [1, 2, 1], 'col_b': [2, 4, 2]})
+df2 = dataframe_from_dict({'col_a': [1, 8], 'col_c': [9, 11], 'col_d': [True, False]})
+
+pretty_print(
+    join(
+        df1=df1, 
+        df2=df2, 
+        key1='col_a', 
+        key2='col_a',
+        type='inner'
+    )
+)
+```
+```
+[out]:
+
+  index    col_a    col_b    col_a_2    col_c  col_d
+-------  -------  -------  ---------  -------  -------
+      0        1        2          1        9  True
+      1        1        2          1        9  True
 ```
